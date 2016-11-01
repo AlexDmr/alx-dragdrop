@@ -1,0 +1,24 @@
+{
+  "name": "alx-dragdrop",
+  "version": "0.9.0",
+  "description": "Drag and drop for Angular2. Works with both mouse and touch.",
+  "main": "DragDropModule.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexDmr/alx-dragdrop.git"
+  },
+  "keywords": [
+    "drag and drop",
+    "Angular2",
+    "touch"
+  ],
+  "author": "AlexDmr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexDmr/alx-dragdrop/issues"
+  },
+  "homepage": "https://github.com/AlexDmr/alx-dragdrop#readme"
+}
