@@ -1,0 +1,1 @@
+{"version":3,"file":"DragDropModule.js","sourceRoot":"","sources":["DragDropModule.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;YAYA;YAA8B,CAAC;YAP/B;gBAAC,eAAQ,CAAC;oBACN,OAAO,EAAO,CAAE,qBAAY,CAAE;oBAC9B,OAAO,EAAO,CAAE,gCAAW,EAAE,iCAAY,EAAE,gCAAW,CAAE;oBACxD,YAAY,EAAE,CAAE,gCAAW,EAAE,iCAAY,EAAE,gCAAW,CAAE;oBACxD,SAAS,EAAK,EAAG;iBAEpB,CAAC;;8BAAA;YACF,2CAA+B,CAAA"}

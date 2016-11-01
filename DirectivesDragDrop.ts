@@ -1,6 +1,7 @@
 import {Directive, ElementRef, Input, HostListener, EventEmitter, Output} from "@angular/core";
 import {myDoc} from "./DragDropUtils";
 
+
 /* Polyfill TouchEvent */
 interface MyTouchEvent extends TouchEvent {};
 /*
