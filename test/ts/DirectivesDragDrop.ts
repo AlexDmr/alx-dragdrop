@@ -211,12 +211,15 @@ export class AlxDraggable {
         if(this.cloneNode) {
             this.cloneNode.style.left = (x - this.dx) + "px";
             this.cloneNode.style.top  = (y - this.dy) + "px";
+            let parent = this.cloneNode.parentElement;
             let visibility = this.cloneNode.style.visibility;
+            parent.removeChild( this.cloneNode );
             this.cloneNode.style.visibility = "hidden";
             // let L = <Array<Element>>myDoc.elementsFromPoint(x-window.pageXOffset, y-window.pageYOffset);
             element = myDoc.elementFromPoint(x, y); //(x-window.pageXOffset, y-window.pageYOffset);
             //console.log( "element", element );
             this.cloneNode.style.visibility = visibility;
+            parent.appendChild( this.cloneNode );
             this.possibleDropZones.forEach( dz => dz.removePointerHover(this.idPointer) );
             while(element) {
                 // Check if we are on top of a dropZone
