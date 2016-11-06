@@ -22,3 +22,4 @@ myDoc.elementsFromPoint = myDoc.elementsFromPoint || function(x:number, y:number
     }
     return elements;
 };
+

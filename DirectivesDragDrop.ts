@@ -117,6 +117,16 @@ export class AlxDragDrop {
     }
 }
 
+let offsetElement = (element: HTMLElement) : {left: number, top: number} => {
+    let left = 0, top = 0;
+    while (element) {
+        top  += element.offsetTop  - element.scrollTop  + element.clientTop;
+        left += element.offsetLeft - element.scrollLeft + element.clientLeft;
+        element = element.offsetParent as HTMLElement;
+    }
+    return {left: left, top: top}; // + element.scrollTop; //window.scrollY;
+};
+
 @Directive({
     selector: "*[alx-draggable]"
 })
@@ -181,9 +191,10 @@ export class AlxDraggable implements OnInit, OnDestroy {
             this.isBeingDragged = true;
             this.idPointer = idPointer;
             // let bbox = this.root.getBoundingClientRect();
+            let offset = offsetElement(this.root);
             this.ox = x; this.oy = y;
-            this.dx = x - this.root.offsetLeft; // Math.round(bbox.left + window.pageXOffset);
-            this.dy = y - this.root.offsetTop ; // Math.round(bbox.top  + window.pageYOffset);
+            this.dx = x - offset.left; // Math.round(bbox.left + window.pageXOffset);
+            this.dy = y - offset.top ; // Math.round(bbox.top  + window.pageYOffset);
             /*let D = document.querySelector("#debug");
             D.innerHTML = window.pageXOffset + " ; " + window.pageYOffset + "<br/>"
                         + window.scrollX + " ; " + window.scrollY + "<br/>"
@@ -282,8 +293,12 @@ export class AlxDraggable implements OnInit, OnDestroy {
 
             // Insert the clone on the DOM
             document.body.appendChild( this.cloneNode );
-            this.cloneNode.style.position   = "absolute";
-            this.cloneNode.style.zIndex     = "999";
+            this.cloneNode.style.position     = "absolute";
+            this.cloneNode.style.zIndex       = "999";
+            this.cloneNode.style.marginLeft   = "0";
+            this.cloneNode.style.marginTop    = "0";
+            this.cloneNode.style.marginRight  = "0";
+            this.cloneNode.style.marginBottom = "0";
             this.cloneNode.classList.add( "alx-cloneNode" );
         }
         return this.cloneNode;
