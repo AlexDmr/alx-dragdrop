@@ -1,7 +1,6 @@
 import {Directive, ElementRef, Input, HostListener, EventEmitter, Output, OnInit, OnDestroy} from "@angular/core";
 import {myDoc} from "./DragDropUtils";
 
-
 /* Polyfill TouchEvent */
 interface MyTouchEvent extends TouchEvent {}
 /*
@@ -185,12 +184,12 @@ export class AlxDraggable implements OnInit, OnDestroy {
             this.ox = x; this.oy = y;
             this.dx = x - this.root.offsetLeft; // Math.round(bbox.left + window.pageXOffset);
             this.dy = y - this.root.offsetTop ; // Math.round(bbox.top  + window.pageYOffset);
-            let D = document.querySelector("#debug");
+            /*let D = document.querySelector("#debug");
             D.innerHTML = window.pageXOffset + " ; " + window.pageYOffset + "<br/>"
                         + window.scrollX + " ; " + window.scrollY + "<br/>"
                         + this.root.offsetLeft + " ; " + this.root.offsetTop + "<br/>"
                         // + bbox.left + " ; " + bbox.top
-                        ;
+                        ;*/
             this.tx = this.root.offsetWidth ; // bbox.width ;
             this.ty = this.root.offsetHeight; // bbox.height;
             this.onDragStart.emit( this.draggedData );

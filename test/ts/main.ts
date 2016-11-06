@@ -7,8 +7,8 @@ import { DragDropModule } 			from "./DragDropModule";
 
 let template = `
 	<h1 alx-dragdrop>Test of alx-dragdrop</h1>
-	<p alx-draggable="paragraphe">
-		A paragraphe with a lot of text... 
+	<section [alx-draggable]="lab">
+		<label #lab>A paragraphe with a lot of text...</label> 
 		Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
 		totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt 
 		explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur 
@@ -17,20 +17,16 @@ let template = `
 		magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit 
 		laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate 
 		velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-	</p>
+	</section>
 	<ul>
-		<li><img alx-draggable="image" src="http://mag.mo5.com/wp-content/uploads/2013/06/ban1.png"/></li>	
+		<li><img [alx-draggable]="imgMag" src="http://mag.mo5.com/wp-content/uploads/2013/06/ban1.png" #imgMag/></li>	
 		<li>
 			<section class="p_img" 
-					 [alx-draggable]  = "{
-					        data          : 'paragraphe and image',
-					        touchDelay    : 500,
-					        touchDistance : 30
-					        }"
+					 [alx-draggable]  = "imgCPC"
 					 (alx-drag-start) = "Log('DragStart from p_img')"
 					 (alx-drag-end)   = "Log('DragEnd from p_img')"
 					 >
-				<img src="http://www.cpcwiki.eu/forum/logo_new_hor_sm.png"/>
+				<img src="http://www.cpcwiki.eu/forum/logo_new_hor_sm.png" #imgCPC/>
 				Ce projet a débuté en 1983, Amstrad, société britannique produisant du matériel HI-FI dirigée par Alan 
 				Michael Sugar (souvent abrégé en "AMS"), est à la recherche d'un nouveau créneau. AMS voit une place 
 				vacante dans le marché de la micro-informatique de l'époque : jusque-là, en effet, elle s'adressait 
@@ -134,10 +130,8 @@ class RootManager {
 	Log(str: string) {
 		console.log("Log", str);
 	}
-	Append(str: string, element: HTMLElement) {
-		let p = document.createElement("p");
-		p.textContent = str;
-		element.appendChild( p );
+	Append(data: HTMLElement, element: HTMLElement) {
+		element.appendChild( data.cloneNode(true) );
 	}
 }
 
