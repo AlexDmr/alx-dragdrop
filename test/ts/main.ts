@@ -62,10 +62,9 @@ let template = `
 	</ul>
 	<section class="dropzones">
 		<section class="s1"
-				 [alx-dropzone]="{
-				    onDragCSS       : 'dropCandidate',
-				    onDragOverCSS   : 'canDrop'
-				 }"
+				 alx-dropzone
+				 alx-drag-css        = "dropCandidate"
+				 alx-drag-over-css   = "canDrop"
 				 (alx-ondrop)     = "Append($event, section1)"
 				 (alx-drag-start) = "Log('DragStart from section 1')"
 				 (alx-drag-end)   = "Log('DragEnd from section 1')"
@@ -76,7 +75,7 @@ let template = `
 			Drop zone 1
 		</section>
 		<section class="s2"
-				 [alx-dropzone]   = "{}"
+				 alx-dropzone
 				 (alx-ondrop)     = "Append($event, section2)"
 				 (alx-drag-start) = "Log('DragStart from section 2')"
 				 (alx-drag-end)   = "Log('DragEnd from section 2')"

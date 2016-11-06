@@ -3,7 +3,7 @@ import {myDoc} from "./DragDropUtils";
 
 
 /* Polyfill TouchEvent */
-interface MyTouchEvent extends TouchEvent {};
+interface MyTouchEvent extends TouchEvent {}
 /*
 interface ShadowRoot extends DocumentFragment {
     styleSheets     : StyleSheetList;
@@ -118,16 +118,13 @@ export class AlxDragDrop {
     }
 }
 
-type DataConf = {
-    touchDelay?     : number;
-    touchDistance?  : number;
-    data            : any;
-};
 @Directive({
     selector: "*[alx-draggable]"
 })
 export class AlxDraggable implements OnInit, OnDestroy {
-    @Input ("alx-draggable" )        conf : DataConf;
+    @Input ("alx-draggable" ) draggedData : any;
+    @Input ("alx-touch-delay") touchDelay : number;
+    @Input ("alx-touch-distance") touchDistance: number;
     @Output("alx-drag-start") onDragStart = new EventEmitter<any>();
     @Output("alx-drag-end"  ) onDragEnd   = new EventEmitter<any>();
     private isBeingDragged                : boolean = false;
@@ -150,26 +147,7 @@ export class AlxDraggable implements OnInit, OnDestroy {
         //console.log( "new instance of AlxDraggable", this );
     }
     ngOnInit() {
-        if(typeof this.conf !== "object") {
-            this.conf = {data: this.conf};
-        } else {
-            if (typeof this.conf.data === "undefined") {
-                console.error("alx-draggable should have at least the attribute data on", this.root);
-            }
-            let type = typeof this.conf.touchDelay;
-            if (type !== "undefined" && type !== "number") {
-                console.error("touchDelay attribute should be a number on", this.root);
-            }
-            type = typeof this.conf.touchDistance;
-            if (type !== "undefined" && type !== "number") {
-                console.error("touchDistance attribute should be a number on", this.root);
-            }
-            for(let key in this.conf) {
-                if(key !== "touchDelay" && key !== "touchDistance" && key !== "data") {
-                    console.error(key, "attribute is not recognize for configuring a alex-draggable on", this.root);
-                }
-            }
-        }
+        //
     }
     ngOnDestroy() {
         this.stop();
@@ -190,7 +168,7 @@ export class AlxDraggable implements OnInit, OnDestroy {
         }
     }
     prestart(idPointer: string, x: number, y: number) {
-        DM.preStartDrag(idPointer, this, x, y, this.conf.touchDelay || 50, this.conf.touchDistance || 20).then(
+        DM.preStartDrag(idPointer, this, x, y, this.touchDelay || 50, this.touchDistance || 10).then(
             () => {
                 this.start(idPointer, x, y);
             },
@@ -203,13 +181,19 @@ export class AlxDraggable implements OnInit, OnDestroy {
         if( !this.isBeingDragged ) {
             this.isBeingDragged = true;
             this.idPointer = idPointer;
-            let bbox = this.root.getBoundingClientRect();
+            // let bbox = this.root.getBoundingClientRect();
             this.ox = x; this.oy = y;
-            this.dx = x - Math.round(bbox.left + window.pageXOffset);
-            this.dy = y - Math.round(bbox.top  + window.pageYOffset);
-            this.tx = bbox.width;
-            this.ty = bbox.height;// console.log( "drag", this.tx, bbox.right - bbox.left );
-            this.onDragStart.emit( this.conf.data );
+            this.dx = x - this.root.offsetLeft; // Math.round(bbox.left + window.pageXOffset);
+            this.dy = y - this.root.offsetTop ; // Math.round(bbox.top  + window.pageYOffset);
+            let D = document.querySelector("#debug");
+            D.innerHTML = window.pageXOffset + " ; " + window.pageYOffset + "<br/>"
+                        + window.scrollX + " ; " + window.scrollY + "<br/>"
+                        + this.root.offsetLeft + " ; " + this.root.offsetTop + "<br/>"
+                        // + bbox.left + " ; " + bbox.top
+                        ;
+            this.tx = this.root.offsetWidth ; // bbox.width ;
+            this.ty = this.root.offsetHeight; // bbox.height;
+            this.onDragStart.emit( this.draggedData );
             this.possibleDropZones = DM.startDrag(idPointer, this, x, y);
         }
     }
@@ -228,10 +212,10 @@ export class AlxDraggable implements OnInit, OnDestroy {
         this.possibleDropZones.clear();
         this.idPointer = null;
         if(this.currentDropZone) {
-            this.currentDropZone.drop( this.conf.data );
+            this.currentDropZone.drop( this.draggedData );
         }
         this.currentDropZone = null;
-        this.onDragEnd.emit( this.conf.data );
+        this.onDragEnd.emit( this.draggedData );
     }
     move(x: number, y: number) : this {
         let element : Element = null;
@@ -247,7 +231,7 @@ export class AlxDraggable implements OnInit, OnDestroy {
             this.cloneNode.style.visibility = "hidden";
             // let L = <Array<Element>>myDoc.elementsFromPoint(x-window.pageXOffset, y-window.pageYOffset);
             element = myDoc.elementFromPoint(x, y);
-            //console.log( "element", element );
+
             this.cloneNode.style.visibility = visibility;
             parent.appendChild( this.cloneNode );
 
@@ -255,9 +239,7 @@ export class AlxDraggable implements OnInit, OnDestroy {
             while(element) {
                 // Check if we are on top of a dropZone
                 this.currentDropZone = this.possibleDropZones.get( element );
-                if(this.currentDropZone) {
-                    break;
-                }
+                if(this.currentDropZone) {break;}
                 element = <Element>element.parentElement;
             }
             if(prevDropZone !== this.currentDropZone) {
@@ -309,14 +291,11 @@ export class AlxDraggable implements OnInit, OnDestroy {
     }
 }
 
-type configDropZOneType = {
-    onDragCSS?      : string;
-    onDragOverCSS?  : string;
-};
 @Directive({ selector: "*[alx-dropzone]" })
 export class AlxDropzone implements OnInit, OnDestroy {
     public root : HTMLElement;
-    @Input("alx-dropzone") conf  : configDropZOneType;
+    @Input("alx-drag-css"     ) dragCSS     : string;
+    @Input("alx-drag-over-css") dragOverCSS : string;
     @Input("alx-accept-fcuntion") acceptFunction : (data: any) => boolean;
     @Output("alx-ondrop")     onDropEmitter = new EventEmitter<any>();
     @Output("alx-drag-start") onDragStart   = new EventEmitter<any>();
@@ -336,23 +315,7 @@ export class AlxDropzone implements OnInit, OnDestroy {
         DM.registerDropZone(this);
     }
     ngOnInit() {
-        if(typeof this.conf !== "object") {
-            console.error("Attribute alx-dropzone should be assignated to an object in", this.root);
-        } else {
-            let type = typeof this.conf.onDragCSS;
-            if (type !== "undefined" && type !== "string") {
-                console.error("onDragCSS attribute should be a string on", this.root);
-            }
-            type = typeof this.conf.onDragOverCSS;
-            if (type !== "undefined" && type !== "string") {
-                console.error("onDragOverCSS attribute should be a string on", this.root);
-            }
-            for(let key in this.conf) {
-                if(key !== "onDragCSS" && key !== "onDragOverCSS" ) {
-                    console.error(key, "attribute is not recognize for configuring a alex-dropzone on", this.root);
-                }
-            }
-        }
+        //
     }
     ngOnDestroy() {
         console.log( "TODO: Should implement dropzone destoy");
@@ -362,7 +325,7 @@ export class AlxDropzone implements OnInit, OnDestroy {
         this.onDropEmitter.emit( obj );
     }
     checkAccept(drag: AlxDraggable) : boolean {
-        return this.acceptFunction?( drag.conf.data ):true;
+        return this.acceptFunction?( drag.draggedData ):true;
     }
     hasPointerHover(idPointer: string) {
         return this.pointersHover.indexOf(idPointer) >= 0;
@@ -370,9 +333,9 @@ export class AlxDropzone implements OnInit, OnDestroy {
     appendPointerHover( idPointer: string ) {
         if( this.pointersHover.indexOf(idPointer) === -1 ) {
             this.pointersHover.push(idPointer);
-            this.onDragEnter.emit( DM.draggedStructures.get(idPointer).conf.data );
-            if(this.conf.onDragOverCSS) {
-                this.root.classList.add( this.conf.onDragOverCSS );
+            this.onDragEnter.emit( DM.draggedStructures.get(idPointer).draggedData );
+            if(this.dragOverCSS) {
+                this.root.classList.add( this.dragOverCSS );
             }
         }
     }
@@ -380,29 +343,29 @@ export class AlxDropzone implements OnInit, OnDestroy {
         let pos = this.pointersHover.indexOf(idPointer);
         if( pos >= 0 ) {
             this.pointersHover.splice(pos, 1);
-            this.onDragLeave.emit( DM.draggedStructures.get(idPointer).conf.data );
-            if(this.pointersHover.length === 0 && this.conf.onDragOverCSS) {
-                this.root.classList.remove( this.conf.onDragOverCSS );
+            this.onDragLeave.emit( DM.draggedStructures.get(idPointer).draggedData );
+            if(this.pointersHover.length === 0 && this.dragOverCSS) {
+                this.root.classList.remove( this.dragOverCSS );
             }
         }
     }
     appendDropCandidatePointer( idPointer: string ) {
         //console.log( "appendDropCandidatePointer", idPointer, this );
         if( this.dropCandidateofPointers.indexOf(idPointer) === -1 ) {
-            this.onDragStart.emit( DM.draggedStructures.get(idPointer).conf.data );
+            this.onDragStart.emit( DM.draggedStructures.get(idPointer).draggedData );
             this.dropCandidateofPointers.push( idPointer );
-            if(this.conf.onDragCSS) {
-                this.root.classList.add( this.conf.onDragCSS );
+            if(this.dragCSS) {
+                this.root.classList.add( this.dragCSS );
             }
         }
     }
     removeDropCandidatePointer( idPointer: string ) {
         let pos = this.dropCandidateofPointers.indexOf(idPointer);
         if( pos >= 0 ) {
-            this.onDragEnd.emit( DM.draggedStructures.get(idPointer).conf.data );
+            this.onDragEnd.emit( DM.draggedStructures.get(idPointer).draggedData );
             this.dropCandidateofPointers.splice(pos, 1);
-            if(this.dropCandidateofPointers.length === 0 && this.conf.onDragCSS) {
-                this.root.classList.remove( this.conf.onDragCSS );
+            if(this.dropCandidateofPointers.length === 0 && this.dragCSS) {
+                this.root.classList.remove( this.dragCSS );
             }
         }
     }
