@@ -1,6 +1,11 @@
-<h1>Drag and drop for Angular 2</h1>
+<h1>Drag and drop for Angular 2: works with mouse and touches</h1>
 <p>
-Import DragDropModule module, which define 3 directives :
+	A clone of the dragged element will be inserted in the DOM, as a direct child of body. It will contains tha CSS class "alx-cloneNode".
+	You can use that information to specify CSS rule in order, for instance, to apply opacity to the clone.
+</p>
+<p>
+	Start by importing DragDropModule module, which defines 3 directives :
+</p>
 <ol>
 	<li><h3>alx-dragdrop</h3>
 		<p>Attribute directive that has to be present once at the beggining, before any use of the other drag and drop directives.</p>
@@ -109,8 +114,3 @@ Import DragDropModule module, which define 3 directives :
 	</li>
 </ol>
 </p>
-
-    @Output("alx-drag-start") onDragStart   = new EventEmitter<any>();
-    @Output("alx-drag-end")   onDragEnd     = new EventEmitter<any>();
-    @Output("alx-drag-enter") onDragEnter   = new EventEmitter<any>();
-    @Output("alx-drag-leave") onDragLeave   = new EventEmitter<any>();
