@@ -310,7 +310,7 @@ export class AlxDropzone implements OnInit, OnDestroy {
     public root : HTMLElement;
     @Input("alx-drag-css"     ) dragCSS     : string;
     @Input("alx-drag-over-css") dragOverCSS : string;
-    @Input("alx-accept-fcuntion") acceptFunction : (data: any) => boolean;
+    @Input("alx-accept-function") acceptFunction : (data: any) => boolean;
     @Output("alx-ondrop")     onDropEmitter = new EventEmitter<any>();
     @Output("alx-drag-start") onDragStart   = new EventEmitter<any>();
     @Output("alx-drag-end")   onDragEnd     = new EventEmitter<any>();
