@@ -233,8 +233,8 @@ export class AlxDraggable implements OnInit, OnDestroy {
             this.getClone();
         }
         if(this.cloneNode) {
-            this.cloneNode.style.left = (x - this.dx) + "px";
-            this.cloneNode.style.top  = (y - this.dy) + "px";
+            this.cloneNode.style.left = (x - this.dx + window.pageXOffset) + "px";
+            this.cloneNode.style.top  = (y - this.dy + window.pageYOffset) + "px";
             let parent = this.cloneNode.parentElement;
             let visibility = this.cloneNode.style.visibility;
             parent.removeChild( this.cloneNode );
