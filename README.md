@@ -1,8 +1,63 @@
 <h1>Drag and drop for Angular 2: works with mouse and touches</h1>
+<h2>Installation</h2>
+	<p>This library is declared using the SystemJS package system. If you use SystemJS, then you should add the following declaration to you system.config.js file:</p>
+	<pre>
+	map: {
+		...
+		"alx-dragdrop/DragDropModule": "npm:alx-dragdrop"
+		...
+	}
+	packages: {
+		...
+		"alx-dragdrop/DragDropModule": {main: "./DragDropModule.js", defaultExtension: "js"}
+		...
+	}
+	</pre>
+
+<h2>Usage</h2>
 <p>
 	A clone of the dragged element will be inserted in the DOM, as a direct child of body. It will contains tha CSS class "alx-cloneNode".
 	You can use that information to specify CSS rule in order, for instance, to apply opacity to the clone.
 </p>
+<pre>
+	body > .alx-cloneNode {
+		opacity: 0.7;
+	}
+</pre>
+<p>
+	Don't forget to use ONCE, at the beginning, the alx-dragdrop directive.
+	Then, to make a component (or any HTML tag) draggable, use alx-draggable directive. Its value is what will be transmitted by the drag.
+</p>
+<pre>
+	&lt;section [alx-draggable]=&quot;{someAttribute: 'hello', someOther: 34}&quot;&gt; ... &lt;/section&gt;
+</pre>
+<p>
+	In order to define a drop zone, one could do:
+</p>
+<pre>
+	&lt;section alx-dropzone (alx-ondrop)=&quot;DoSomethingWhenDrop($event)&quot;&gt; ... &lt;/section&gt;
+</pre>
+<p>
+	You can refine the dropzone to precise what kind of drag you want to accept.
+	It is also possible to define some CSS classes to provide some feedback during the interaction.
+</p>
+<pre>
+	&lt;section alx-dropzone 
+		[alx-accept-function]=&quot;hasAttributeSome&quot; 
+		alx-drag-css = &quot;dropCandidate&quot; 
+		alx-drag-over-css = &quot;canDrop&quot; 
+		(alx-ondrop)=&quot;DoSomethingWhenDrop($event)&quot; &gt; 
+		... 
+	&lt;/section&gt; 
+	_________________________________________________________________ 
+	class MyComponent { 
+		hasAttributeSome( draggedData: any ) : boolean { 
+			return typeof draggedData.someAttribute !== &quot;undefined&quot; 
+		}
+	}
+</pre>
+
+<h2>API</h2>
 <p>
 	Start by importing DragDropModule module, which defines 3 directives :
 </p>
