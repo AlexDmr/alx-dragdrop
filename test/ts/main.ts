@@ -61,6 +61,7 @@ let template = `
 				 alx-dropzone
 				 alx-drag-css        = "dropCandidate"
 				 alx-drag-over-css   = "canDrop"
+				 [alx-accept-function] = "isHTML_Element"
 				 (alx-ondrop)     = "Append($event, section1)"
 				 (alx-drag-start) = "Log('DragStart from section 1')"
 				 (alx-drag-end)   = "Log('DragEnd from section 1')"
@@ -72,14 +73,17 @@ let template = `
 		</section>
 		<section class="s2"
 				 alx-dropzone
-				 (alx-ondrop)     = "Append($event, section2)"
+				 alx-drag-css        = "dropCandidate"
+				 alx-drag-over-css   = "canDrop"
+				 [alx-accept-function] = "isDragNativeHTML"
+				 (alx-ondrop)     = "AppendHTML_Drag($event, section2)"
 				 (alx-drag-start) = "Log('DragStart from section 2')"
 				 (alx-drag-end)   = "Log('DragEnd from section 2')"
 				 (alx-drag-enter) = "Log('DragEnter from section 2')"
 				 (alx-drag-leave) = "Log('DragLeave from section 2')"
 				 #section2
 				 >
-			Drop zone 2
+			Drop zone 2: for native HTML5 drag events
 		</section>
 	</section>
 `;
@@ -124,7 +128,8 @@ let style = `
 	styles      : [ style ]
 })
 class RootManager {
-	isText(data: any) {
+	isHTML_Element(data: any) {
+		return HTMLElement.prototype.isPrototypeOf( data );
 		return typeof data === "string";
 	}
 	Log(str: string) {
@@ -132,6 +137,16 @@ class RootManager {
 	}
 	Append(data: HTMLElement, element: HTMLElement) {
 		element.appendChild( data.cloneNode(true) );
+	}
+	isDragNativeHTML(data: any) : boolean {
+		console.log( "isDragNativeHTML:", data.dataTransfer?true:false );
+		return data.dataTransfer;
+	}
+	AppendHTML_Drag(event: DragEvent, element: HTMLElement) {
+		console.log( "AppendHTML_Drag", event);
+		let p = document.createElement( "p" );
+		p.innerHTML = event.dataTransfer.getData( "text/html" );
+		element.appendChild( p );
 	}
 }
 
