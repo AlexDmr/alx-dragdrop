@@ -274,13 +274,13 @@ export class AlxDraggable implements OnInit, OnDestroy {
             this.cloneNode.style.top  = (y - this.dy + window.pageYOffset) + "px";
             let parent = this.cloneNode.parentElement;
             let visibility = this.cloneNode.style.visibility;
-            parent.removeChild( this.cloneNode );
+            // parent.removeChild( this.cloneNode );
             this.cloneNode.style.visibility = "hidden";
             // let L = <Array<Element>>myDoc.elementsFromPoint(x-window.pageXOffset, y-window.pageYOffset);
             element = myDoc.elementFromPoint(x, y);
 
             this.cloneNode.style.visibility = visibility;
-            parent.appendChild( this.cloneNode );
+            // parent.appendChild( this.cloneNode );
 
             let prevDropZone = this.currentDropZone;
             while(element) {
@@ -338,16 +338,18 @@ export class AlxDraggable implements OnInit, OnDestroy {
 
             // Insert the clone on the DOM
             document.body.appendChild( this.cloneNode );
-            this.cloneNode.style.position     = "absolute";
-            this.cloneNode.style.zIndex       = "999";
-            this.cloneNode.style.marginLeft   = "0";
-            this.cloneNode.style.marginTop    = "0";
-            this.cloneNode.style.marginRight  = "0";
-            this.cloneNode.style.marginBottom = "0";
-            this.cloneNode.style.opacity      = "";
-            this.cloneNode.style.cursor       = "";
-            this.cloneNode.style.transform    = "";
+            this.cloneNode.style.position        = "absolute";
+            this.cloneNode.style.zIndex          = "999";
+            this.cloneNode.style.marginLeft      = "0";
+            this.cloneNode.style.marginTop       = "0";
+            this.cloneNode.style.marginRight     = "0";
+            this.cloneNode.style.marginBottom    = "0";
+            this.cloneNode.style.opacity         = "";
+            this.cloneNode.style.cursor          = "";
+            this.cloneNode.style.transform       = "";
             this.cloneNode.style.transformOrigin = "";
+            this.cloneNode.style.animation       = "";
+            this.cloneNode.style.transition      = "";
             this.cloneNode.classList.add( "alx-cloneNode" );
             // console.log( this.cloneNode.style );
         }
