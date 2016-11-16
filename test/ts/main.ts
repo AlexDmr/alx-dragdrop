@@ -61,6 +61,7 @@ let template = `
 				 alx-dropzone
 				 alx-drag-css        = "dropCandidate"
 				 alx-drag-over-css   = "canDrop"
+				 alx-drag-over-css-for-draggable = "canBeDropped"
 				 [alx-accept-function] = "isHTML_Element"
 				 (alx-ondrop)     = "Append($event, section1)"
 				 (alx-drag-start) = "Log('DragStart from section 1')"
@@ -130,10 +131,11 @@ let style = `
 class RootManager {
 	isHTML_Element(data: any) {
 		return HTMLElement.prototype.isPrototypeOf( data );
-		return typeof data === "string";
+		// return typeof data === "string";
 	}
 	Log(str: string) {
-		console.log("Log", str);
+		let dragClone = document.querySelector( "body > .alx-cloneNode" );
+		console.log("Log", str, "with cloneNode", dragClone?"exists":"don't exists");
 	}
 	Append(data: HTMLElement, element: HTMLElement) {
 		element.appendChild( data.cloneNode(true) );

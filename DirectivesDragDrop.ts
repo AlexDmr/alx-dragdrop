@@ -243,22 +243,18 @@ export class AlxDraggable implements OnInit, OnDestroy {
                         ;*/
             this.tx = this.root.offsetWidth ; // bbox.width ;
             this.ty = this.root.offsetHeight; // bbox.height;
+
+            this.getClone();
             this.onDragStart.emit( this.draggedData );
             this.possibleDropZones = DM.startDrag(idPointer, this, x, y);
         }
     }
     stop() {
-        this.isBeingDragged = false;
-        if(this.cloneNode) {
-            if(this.cloneNode.parentNode) {
-                this.cloneNode.parentNode.removeChild(this.cloneNode);
-            }
-            this.cloneNode = null;
-        }
         this.possibleDropZones.forEach( dz => {
             dz.removePointerHover           (this.idPointer);
             dz.removeDropCandidatePointer   (this.idPointer);
         } );
+        this.isBeingDragged = false;
         this.possibleDropZones.clear();
         this.idPointer = null;
         if(this.currentDropZone) {
@@ -266,6 +262,7 @@ export class AlxDraggable implements OnInit, OnDestroy {
         }
         this.currentDropZone = null;
         this.onDragEnd.emit( this.draggedData );
+        this.deleteClone();
     }
     move(x: number, y: number) : this {
         let element : Element = null;
@@ -325,7 +322,15 @@ export class AlxDraggable implements OnInit, OnDestroy {
             }
         }
     }
-    getClone() : Node {
+    deleteClone() {
+        if(this.cloneNode) {
+            if(this.cloneNode.parentNode) {
+                this.cloneNode.parentNode.removeChild(this.cloneNode);
+            }
+            this.cloneNode = null;
+        }
+    }
+    getClone() : HTMLElement {
         if(this.cloneNode === null) {
             this.cloneNode = <HTMLElement>this.root.cloneNode(true);
             // Apply computed style :
@@ -341,6 +346,8 @@ export class AlxDraggable implements OnInit, OnDestroy {
             this.cloneNode.style.marginBottom = "0";
             this.cloneNode.style.opacity      = "";
             this.cloneNode.style.cursor       = "";
+            this.cloneNode.style.transform    = "";
+            this.cloneNode.style.transformOrigin = "";
             this.cloneNode.classList.add( "alx-cloneNode" );
             // console.log( this.cloneNode.style );
         }
@@ -354,6 +361,7 @@ export class AlxDropzone implements OnInit, OnDestroy {
     public root : HTMLElement;
     @Input("alx-drag-css"     ) dragCSS     : string;
     @Input("alx-drag-over-css") dragOverCSS : string;
+    @Input("alx-drag-over-css-for-draggable") dragOverCSS_pointer : string;
     @Input("alx-accept-function") acceptFunction : (data: any) => boolean;
     @Output("alx-ondrop")     onDropEmitter = new EventEmitter<any>();
     @Output("alx-drag-start") onDragStart   = new EventEmitter<any>();
@@ -420,6 +428,9 @@ export class AlxDropzone implements OnInit, OnDestroy {
             let dragged = DM.draggedStructures.get(idPointer);
             this.pointersHover.push(idPointer);
             if(dragged instanceof AlxDraggable) {
+                if(this.dragOverCSS_pointer) {
+                    dragged.getClone().classList.add( this.dragOverCSS_pointer );
+                }
                 this.onDragEnter.emit( dragged.draggedData );
             } else {
                 this.onDragEnter.emit( dragged );
@@ -435,6 +446,9 @@ export class AlxDropzone implements OnInit, OnDestroy {
             let dragged = DM.draggedStructures.get(idPointer);
             this.pointersHover.splice(pos, 1);
             if(dragged instanceof AlxDraggable) {
+                if(this.dragOverCSS_pointer) {
+                    dragged.getClone().classList.remove( this.dragOverCSS_pointer );
+                }
                 this.onDragLeave.emit( dragged.draggedData );
             } else {
                 this.onDragLeave.emit( dragged );

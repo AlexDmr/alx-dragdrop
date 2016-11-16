@@ -141,6 +141,21 @@
 				</p>
 				<code>alx-drag-over-css = "canDrop"</code>
 			</li>
+			<li><h4>alx-drag-over-css-for-draggable (optionnal)</h4>
+				<p>A CSS class to be added the the drag clone (selectable via "body > .alx-cloneNode")
+				</p>
+				<pre>alx-drag-over-css-for-draggable = "canBeDropDropped"</pre>
+				<pre>
+body > .alx-cloneNode.canBeDropDropped {
+	transform: scale(0.9, 0.9);
+}
+				</pre>
+			</li>
+
+
+			
+
+
 			<li><h4>alx-drag-start (optionnal)</h4>
 				<p>	An event emitter that will be triggered when a compatible drag starts.
 					$event references the dragged data.
