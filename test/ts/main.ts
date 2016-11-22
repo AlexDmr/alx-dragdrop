@@ -135,7 +135,7 @@ class RootManager {
 	}
 	Log(str: string) {
 		let dragClone = document.querySelector( "body > .alx-cloneNode" );
-		console.log("Log", str, "with cloneNode", dragClone) //?"exists":"don't exists");
+		console.log("Log", str, "with cloneNode", dragClone); //?"exists":"don't exists");
 	}
 	Append(data: HTMLElement, element: HTMLElement) {
 		element.appendChild( data.cloneNode(true) );

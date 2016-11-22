@@ -8,7 +8,8 @@
     "moduleResolution": "node",
     "removeComments": false,
     "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true
   },
   "exclude": [
     "node_modules"
