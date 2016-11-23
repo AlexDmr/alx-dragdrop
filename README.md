@@ -78,21 +78,19 @@
 		<section>
 			In addition, you can optionnally specify the following attribute related to the drag :
 			<ul>
-				<li><h4>alx-touch-delay</h4>
-					<p>	This attribute apply to the touch interaction.
-						It indicate, in milliseconds, the delay during which the touch has to remain fixed before the drag can be started.
-						This delay is intended to enable scrolling with touch. 
-						By default, this delay is set to 50ms.
+				<li><h4>alx-start-delay</h4>
+					<p>	This attribute indicates, in milliseconds, the delay during which the pointer has to remain fixed before the drag can be started.
+						This delay is intended to enable scrolling with touch or interacting with bouton (click), etc.
+						By default, this delay is set to 100ms.
 					</p>
-					<code>alx-touch-delay = "50"</code>
+					<code>alx-start-delay = "100"</code>
 				</li>
-				<li><h4>alx-touch-distance</h4>
-					<p>	This attribute apply to the touch interaction.
-						It indicate, in pixels, the distance that the touch should not reach during touch-delay.
-						This distance is intended to enable scrolling with touch. 
-						By default, this delay is set to 20 pixels.
+				<li><h4>alx-start-distance</h4>
+					<p>	This attribute indicates, in pixels, the distance that the pointer should not reach during start-delay.
+						This distance is especially intended to enable scrolling with touch. 
+						By default, this distance is set to 20 pixels.
 					</p>
-					<code>alx-touch-distance = "20"</code>
+					<code>alx-start-distance = "20"</code>
 				</li>
 				<li><h4>alx-drag-start</h4>
 					<p>	This attribute represent an event emitter.

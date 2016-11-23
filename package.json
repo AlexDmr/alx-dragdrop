@@ -1,6 +1,6 @@
 {
   "name": "alx-dragdrop",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Drag and drop for Angular2. Works with both mouse and touch.",
   "main": "DragDropModule.js",
   "scripts": {

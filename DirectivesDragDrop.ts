@@ -73,9 +73,9 @@ class DragManager {
             if(dragged instanceof AlxDraggable) {
                 dragged.stop();
             }
-            this.draggedStructures.delete(idPointer);
-            this.draggingPointer  .delete(idPointer);
         }
+        this.draggedStructures.delete(idPointer);
+        this.draggingPointer  .delete(idPointer);
         return dragged !== undefined;
     }
 }
@@ -172,8 +172,8 @@ let offsetElement = (element: HTMLElement) : {left: number, top: number} => {
 })
 export class AlxDraggable implements OnInit, OnDestroy {
     @Input ("alx-draggable" ) draggedData : any;
-    @Input ("alx-touch-delay") touchDelay : number;
-    @Input ("alx-touch-distance") touchDistance: number;
+    @Input ("alx-start-delay") startDelay : number;
+    @Input ("alx-start-distance") startDistance: number;
     @Output("alx-drag-start") onDragStart = new EventEmitter<any>();
     @Output("alx-drag-end"  ) onDragEnd   = new EventEmitter<any>();
     private isBeingDragged                : boolean = false;
@@ -205,7 +205,7 @@ export class AlxDraggable implements OnInit, OnDestroy {
         //console.log("mousedown on", this, event);
         event.preventDefault();
         event.stopPropagation();
-        this.start("mouse", event.clientX, event.clientY);
+        this.prestart("mouse", event.clientX, event.clientY);
     }
     @HostListener("touchstart", ["$event"]) onTouchStart(event: MyTouchEvent) {
         //console.log("touchstart on", this);
@@ -217,7 +217,7 @@ export class AlxDraggable implements OnInit, OnDestroy {
         }
     }
     prestart(idPointer: string, x: number, y: number) {
-        DM.preStartDrag(idPointer, this, x, y, this.touchDelay || 50, this.touchDistance || 10).then(
+        DM.preStartDrag(idPointer, this, x, y, this.startDelay || 100, this.startDistance || 10).then(
             () => {
                 this.start(idPointer, x, y);
             },

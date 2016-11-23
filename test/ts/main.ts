@@ -25,6 +25,7 @@ let template = `
 					 [alx-draggable]  = "imgCPC"
 					 (alx-drag-start) = "Log('DragStart from p_img')"
 					 (alx-drag-end)   = "Log('DragEnd from p_img')"
+					 [alx-start-delay]="200"
 					 >
 				<img src="http://www.cpcwiki.eu/forum/logo_new_hor_sm.png" #imgCPC/>
 				Ce projet a débuté en 1983, Amstrad, société britannique produisant du matériel HI-FI dirigée par Alan 
