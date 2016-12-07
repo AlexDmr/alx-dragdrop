@@ -199,7 +199,7 @@ export class AlxDraggable implements OnInit, OnDestroy {
         //
     }
     ngOnDestroy() {
-        this.stop();
+        // XXX No stop in case of unplug while dragging... : // this.stop();
     }
     @HostListener("mousedown" , ["$event"]) onMouseDown (event : MouseEvent) {
         //console.log("mousedown on", this, event);
