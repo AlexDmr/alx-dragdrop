@@ -1,10 +1,20 @@
 <h1>Drag and drop for Angular 2: works with mouse and touches</h1>
-<h2>Installation</h2>
+<p>
+	There are several version of this library in different subdirectories :
+	<ul>
+		<li>es2015 : in alx-dragdrop/es2015</li>
+		<li>UMD : in alx-dragdrop/umd</li>
+		<li>commonjs : in alx-dragdrop/commonjs</li>
+		<li>systemjs : in alx-dragdrop/systemjs</li>
+	</ul>
+</p>
+
+<h2>Installation for SystemJS</h2>
 	<p>This library is declared using the SystemJS package system. If you use SystemJS, then you should add the following declaration to you system.config.js file:</p>
 	<pre>
 	map: {
 		...
-		"alx-dragdrop/DragDropModule": "npm:alx-dragdrop"
+		"alx-dragdrop/DragDropModule": "npm:alx-dragdrop/systemjs"
 		...
 	}
 	packages: {
