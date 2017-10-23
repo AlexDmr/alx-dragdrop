@@ -20,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/AlexDmr/alx-dragdrop/issues"
   },
-  "homepage": "https://github.com/AlexDmr/alx-dragdrop#readme"
+  "homepage": "https://github.com/AlexDmr/alx-dragdrop#readme",
+  "devDependencies": {
+    "@angular/common": "^4.4.6",
+    "@angular/compiler": "^4.4.6",
+    "@angular/core": "^4.4.6",
+    "@angular/platform-browser": "^4.4.6",
+    "@angular/platform-browser-dynamic": "^4.4.6",
+    "rxjs": "^5.5.0"
+  }
 }

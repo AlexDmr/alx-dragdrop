@@ -130,6 +130,9 @@ let style = `
 	styles      : [ style ]
 })
 class RootManager {
+    constructor() {
+        console.log("root-manager isntantiated");
+    }
 	isHTML_Element(data: any) {
 		return HTMLElement.prototype.isPrototypeOf( data );
 		// return typeof data === "string";
@@ -162,3 +165,5 @@ class RootManager {
 export class AppModule {}
 
 platformBrowserDynamic().bootstrapModule(AppModule);
+
+console.log("main.ts loaded");
