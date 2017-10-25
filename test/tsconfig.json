@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "module": "UMD",
+    "module": "system",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

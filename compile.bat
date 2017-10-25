@@ -1,0 +1,1 @@
+tsc -p .\tsconfig.systemjs.json & tsc -p .\tsconfig.commonjs.json & tsc -p .\tsconfig.es2015.json & tsc -p .\tsconfig.umd.json && copy *.ts systemjs && copy *.ts commonjs && copy *.ts UMD && copy *.ts es2015

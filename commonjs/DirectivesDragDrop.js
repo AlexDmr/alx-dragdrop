@@ -299,8 +299,8 @@ let AlxDraggable = class AlxDraggable {
             this.tx = this.root.offsetWidth; // bbox.width ;
             this.ty = this.root.offsetHeight; // bbox.height;
             this.getClone();
-            this.cloneNode.style.left = (x - this.dx + window.pageXOffset) + "px";
-            this.cloneNode.style.top = (y - this.dy + window.pageYOffset) + "px";
+            this.cloneNode.style.left = (x - this.dx /* + window.pageXOffset */) + "px";
+            this.cloneNode.style.top = (y - this.dy /* + window.pageYOffset */) + "px";
             this.onDragStart.emit(this.draggedData);
             this.possibleDropZones = DM.startDrag(idPointer, this, x, y);
         }
@@ -326,8 +326,8 @@ let AlxDraggable = class AlxDraggable {
             this.getClone();
         }
         if (this.cloneNode) {
-            this.cloneNode.style.left = (x - this.dx + window.pageXOffset) + "px";
-            this.cloneNode.style.top = (y - this.dy + window.pageYOffset) + "px";
+            this.cloneNode.style.left = (x - this.dx /* + window.pageXOffset */) + "px";
+            this.cloneNode.style.top = (y - this.dy /* + window.pageYOffset */) + "px";
             // let parent = this.cloneNode.parentElement;
             let visibility = this.cloneNode.style.visibility;
             // parent.removeChild( this.cloneNode );

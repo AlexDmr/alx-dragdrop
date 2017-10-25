@@ -1,21 +1,38 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { AlxDraggable, AlxDropzone, AlxDragDrop } from "./DirectivesDragDrop";
-let DragDropModule = class DragDropModule {
-};
-DragDropModule = __decorate([
-    NgModule({
-        imports: [CommonModule],
-        exports: [AlxDragDrop, AlxDraggable, AlxDropzone],
-        declarations: [AlxDragDrop, AlxDraggable, AlxDropzone],
-        providers: [],
-    })
-], DragDropModule);
-export { DragDropModule };
+System.register(["@angular/core", "@angular/common", "./DirectivesDragDrop"], function (exports_1, context_1) {
+    "use strict";
+    var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __moduleName = context_1 && context_1.id;
+    var core_1, common_1, DirectivesDragDrop_1, DragDropModule;
+    return {
+        setters: [
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
+            function (DirectivesDragDrop_1_1) {
+                DirectivesDragDrop_1 = DirectivesDragDrop_1_1;
+            }
+        ],
+        execute: function () {
+            DragDropModule = class DragDropModule {
+            };
+            DragDropModule = __decorate([
+                core_1.NgModule({
+                    imports: [common_1.CommonModule],
+                    exports: [DirectivesDragDrop_1.AlxDragDrop, DirectivesDragDrop_1.AlxDraggable, DirectivesDragDrop_1.AlxDropzone],
+                    declarations: [DirectivesDragDrop_1.AlxDragDrop, DirectivesDragDrop_1.AlxDraggable, DirectivesDragDrop_1.AlxDropzone],
+                    providers: [],
+                })
+            ], DragDropModule);
+            exports_1("DragDropModule", DragDropModule);
+        }
+    };
+});
 //# sourceMappingURL=DragDropModule.js.map

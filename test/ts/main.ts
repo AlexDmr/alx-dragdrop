@@ -3,7 +3,7 @@ import { Component }                from "@angular/core";
 import { BrowserModule }    		from "@angular/platform-browser";
 import { NgModule } 				from "@angular/core";
 
-import { DragDropModule } 			from "./DragDropModule";
+import { DragDropModule } 			from "./systemjs/DragDropModule";
 
 let template = `
 	<h1 alx-dragdrop>Test of alx-dragdrop</h1>

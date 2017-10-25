@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "module": "systemjs",
+    "module": "system",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -13,7 +13,11 @@
   },
   "exclude": [
     "node_modules",
-    "test"
+    "test",
+    "systemjs",
+    "commonjs",
+    "UMD",
+    "es2015"
   ],
   "types": [
 
