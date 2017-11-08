@@ -6,8 +6,8 @@ import { NgModule } 				from "@angular/core";
 import { DragDropModule } 			from "./systemjs/DragDropModule";
 
 let template = `
-	<h1 alx-dragdrop>Test of alx-dragdrop</h1>
-	<section [alx-draggable]="lab">
+	<h1 alx-dragdrop draggable>Test of alx-dragdrop</h1>
+	<section [alx-draggable]="lab" no-scroll>
 		<label #lab>A paragraphe with a lot of text...</label> 
 		Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
 		totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt 
@@ -19,13 +19,14 @@ let template = `
 		velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
 	</section>
 	<ul>
-		<li><img [alx-draggable]="imgMag" src="http://mag.mo5.com/wp-content/uploads/2013/06/ban1.png" #imgMag/></li>	
+		<li><img [alx-draggable]="imgMag" no-scroll src="http://mag.mo5.com/wp-content/uploads/2013/06/ban1.png" #imgMag/></li>	
 		<li>
 			<section class="p_img" 
 					 [alx-draggable]  = "imgCPC"
 					 (alx-drag-start) = "Log('DragStart from p_img')"
 					 (alx-drag-end)   = "Log('DragEnd from p_img')"
 					 [alx-start-delay]="200"
+					 no-scroll
 					 >
 				<img src="http://www.cpcwiki.eu/forum/logo_new_hor_sm.png" #imgCPC/>
 				Ce projet a débuté en 1983, Amstrad, société britannique produisant du matériel HI-FI dirigée par Alan 
@@ -138,18 +139,19 @@ class RootManager {
 		// return typeof data === "string";
 	}
 	Log(str: string) {
-		let dragClone = document.querySelector( "body > .alx-cloneNode" );
-		console.log("Log", str, "with cloneNode", dragClone); //?"exists":"don't exists");
+		// let dragClone = document.querySelector( "body > .alx-cloneNode" );
+		// console.log("Log", str, "with cloneNode", dragClone); //?"exists":"don't exists");
+        console.log(str);
 	}
 	Append(data: HTMLElement, element: HTMLElement) {
 		element.appendChild( data.cloneNode(true) );
 	}
 	isDragNativeHTML(data: any) : boolean {
-		console.log( "isDragNativeHTML:", data.dataTransfer?true:false );
+		// console.log( "isDragNativeHTML:", data.dataTransfer?true:false );
 		return data.dataTransfer;
 	}
 	AppendHTML_Drag(event: DragEvent, element: HTMLElement) {
-		console.log( "AppendHTML_Drag", event);
+		// console.log( "AppendHTML_Drag", event);
 		let p = document.createElement( "p" );
 		p.innerHTML = event.dataTransfer.getData( "text/html" );
 		element.appendChild( p );

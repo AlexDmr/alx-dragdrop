@@ -34,7 +34,10 @@ System.register(["@angular/core", "./DragDropUtils"], function (exports_1, conte
             
             interface ElementWithShadowRoot extends HTMLElement {
                 shadowRoot  : ShadowRoot;
-            };*/
+            };
+            function preventDefault(e: Event) {
+                e.preventDefault();
+            }*/
             dragPointerId = "dragPointer";
             DragManager = class DragManager {
                 constructor() {
@@ -164,8 +167,8 @@ System.register(["@angular/core", "./DragDropUtils"], function (exports_1, conte
                     for (let i = 0; i < e.changedTouches.length; i++) {
                         let touch = e.changedTouches.item(i);
                         if (DM.pointerMove(touch.identifier.toString(), touch.clientX, touch.clientY)) {
-                            e.preventDefault();
-                            e.stopPropagation();
+                            e.preventDefault(); // XXX PB D&D
+                            e.stopPropagation(); // XXX PB D&D
                         }
                     }
                 }
@@ -284,7 +287,7 @@ System.register(["@angular/core", "./DragDropUtils"], function (exports_1, conte
                     }
                 }
                 prestart(idPointer, x, y) {
-                    DM.preStartDrag(idPointer, this, x, y, this.startDelay || 100, this.startDistance || 10).then(() => {
+                    DM.preStartDrag(idPointer, this, x, y, this.startDelay || 0, this.startDistance || 10).then(() => {
                         this.start(idPointer, x, y);
                     }, () => {
                         // console.error("skip the drag");

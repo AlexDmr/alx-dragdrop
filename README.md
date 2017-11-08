@@ -1,28 +1,9 @@
 <h1>Drag and drop for Angular 2: works with mouse and touches</h1>
 <p>
-	There are several version of this library in different subdirectories :
-	<ul>
-		<li>es2015 : in alx-dragdrop/es2015</li>
-		<li>UMD : in alx-dragdrop/umd</li>
-		<li>commonjs : in alx-dragdrop/commonjs</li>
-		<li>systemjs : in alx-dragdrop/systemjs</li>
-	</ul>
+    Support for Angular 5.
+    <br/>
+    <code>import {DragDropModule} from "alx-dragdrop";</code>
 </p>
-
-<h2>Installation for SystemJS</h2>
-	<p>This library is declared using the SystemJS package system. If you use SystemJS, then you should add the following declaration to you system.config.js file:</p>
-	<pre>
-	map: {
-		...
-		"alx-dragdrop/DragDropModule": "npm:alx-dragdrop/systemjs"
-		...
-	}
-	packages: {
-		...
-		"alx-dragdrop/DragDropModule": {main: "./DragDropModule.js", defaultExtension: "js"}
-		...
-	}
-	</pre>
 
 <h2>Usage</h2>
 <p>
@@ -161,34 +142,5 @@ body > .alx-cloneNode.canBeDropDropped {
 			</li>
 
 
-			
-
-
-			<li><h4>alx-drag-start (optionnal)</h4>
-				<p>	An event emitter that will be triggered when a compatible drag starts.
-					$event references the dragged data.
-				</p>
-				<code>(alx-drag-start) = "DoSomethingWhenDragStartWithData($event)"</code>
-			</li>
-			<li><h4>alx-drag-end (optionnal)</h4>
-				<p>	An event emitter that will be triggered when a compatible drag ends.
-					$event references the dragged data.
-				</p>
-				<code>(alx-drag-end) = "DoSomethingWhenDragEndWithData($event)"</code>
-			</li>
-			<li><h4>alx-drag-enter (optionnal)</h4>
-				<p>	An event emitter that will be triggered when a compatible drag enter the dropzone.
-					$event references the dragged data.
-				</p>
-				<code>(alx-drag-enter) = "DoSomethingWhenDragEnterWithData($event)"</code>
-			</li>
-			<li><h4>alx-drag-leave (optionnal)</h4>
-				<p>	An event emitter that will be triggered when a compatible drag leave the dropzone.
-					$event references the dragged data.
-				</p>
-				<code>(alx-drag-leave) = "DoSomethingWhenDragLeaveWithData($event)"</code>
-			</li>
-		</ul>
-	</li>
 </ol>
 </p>

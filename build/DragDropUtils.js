@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-;
 exports.myDoc = document;
 //(<MyDocument>document).elementsFromPoint = (<MyDocument>document).elementsFromPoint ||
 exports.myDoc.elementsFromPoint = exports.myDoc.elementsFromPoint || function (x, y) {

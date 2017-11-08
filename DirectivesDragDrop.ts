@@ -2,7 +2,7 @@ import {Directive, ElementRef, Input, HostListener, EventEmitter, Output, OnInit
 import {myDoc} from "./DragDropUtils";
 
 /* Polyfill TouchEvent */
-interface MyTouchEvent extends TouchEvent {}
+export interface MyTouchEvent extends TouchEvent {}
 /*
 interface ShadowRoot extends DocumentFragment {
     styleSheets     : StyleSheetList;

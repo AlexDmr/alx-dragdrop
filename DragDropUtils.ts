@@ -1,7 +1,7 @@
 /* Polyfill */
-interface MyDocument extends Document {
+export interface MyDocument extends Document {
     elementsFromPoint(x:number, y:number) : Array<Element>;
-};
+}
 export let myDoc = <MyDocument>document;
 
 //(<MyDocument>document).elementsFromPoint = (<MyDocument>document).elementsFromPoint ||
